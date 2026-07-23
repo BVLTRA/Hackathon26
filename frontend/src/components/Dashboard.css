@@ -243,3 +243,24 @@
   text-transform: uppercase;
   letter-spacing: 1px;
 }
+
+/* --- TOP CENTER LOGO --- */
+.game-logo {
+  position: absolute;
+  top: 104px;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  z-index: 0; /* Sits beneath active modals but above the background */
+  pointer-events: none; /* Prevents it from blocking clicks */
+}
+
+.game-logo img {
+  width: 420px;
+  color: #ff8c00;
+  text-transform: uppercase;
+  letter-spacing: 4px;
+  text-shadow: 0 0 20px rgba(255, 69, 0, 0.8);
+  margin: 0;
+
+}

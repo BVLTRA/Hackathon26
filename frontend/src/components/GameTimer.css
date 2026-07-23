@@ -1,0 +1,94 @@
+.game-timer-card {
+  padding: 16px;
+  min-height: 80px; 
+  justify-content: center;
+  border: 1px solid rgba(57, 255, 20, 0.5); 
+}
+
+/* --- Start Button --- */
+.btn-start-game {
+  width: 100%;
+  padding: 14px;
+  background-color: #4ece37;
+  color: #000;
+  border: none;
+  font-weight: 900;
+  font-size: 1.2rem;
+  text-transform: uppercase;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: transform 0.1s, box-shadow 0.2s;
+}
+
+.btn-start-game:hover {
+  box-shadow: 0 0 15px rgba(57, 255, 20, 0.5);
+}
+.btn-start-game:active {
+  transform: scale(0.98);
+}
+
+/* --- Active Timer UI --- */
+.active-timer-ui {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+}
+
+.stopwatch-display {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2.5rem;
+  font-weight: bold;
+  font-family: monospace;
+  color: #fff;
+  gap: 4px;
+}
+
+/* The overflow hide is what creates the "window" for the wheel to spin inside */
+.digit-wheel {
+  display: inline-flex;
+  overflow: hidden;
+  height: 1.2em;
+  align-items: center;
+}
+
+.bouncy-digit {
+  display: inline-block;
+  animation: bounceSlide 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes bounceSlide {
+  0% { transform: translateY(-100%); opacity: 0; }
+  100% { transform: translateY(0); opacity: 1; }
+}
+
+/* --- Controls --- */
+.timer-controls {
+  display: flex;
+  gap: 10px;
+}
+
+.timer-controls button {
+  flex: 1;
+  padding: 8px;
+  font-weight: bold;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-yellow-outline {
+  background-color: rgba(255, 215, 0, 0.1);
+  border: 1px solid #ffd700;
+  color: #ffd700;
+}
+.btn-yellow-outline:hover { background-color: rgba(255, 215, 0, 0.2); }
+
+.btn-red-outline {
+  background-color: rgba(244, 37, 26, 0.1);
+  border: 1px solid #F4251A;
+  color: #F4251A;
+}
+.btn-red-outline:hover { background-color: rgba(244, 37, 26, 0.2); }

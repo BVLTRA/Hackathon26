@@ -10,6 +10,7 @@ import DrawCards from "./DrawCards";
 import ActiveResult from "./ActiveResult";
 import { GameActionRow } from "./GameActionRow";
 import ExplainRoll from "./ExplainRoll";
+import GameTimer from "./GameTimer";
 
 
 const Dashboard = () => {
@@ -46,13 +47,11 @@ const Dashboard = () => {
       return;
     }
 
-    // Pick a random card number from 1 to 3
-    const randomCardNum = Math.floor(Math.random() * 3) + 1;
+    const matchedCardNum = pendingDiceRoll.value;
 
-    // Send the combined data to the Active Result component
     setActiveEvent({
       alignment: pendingDiceRoll.alignment,
-      imageNum: randomCardNum,
+      imageNum: matchedCardNum, // The 1:1 connection happens here
       diceRollValue: pendingDiceRoll.value
     });
   };
@@ -95,7 +94,7 @@ const Dashboard = () => {
       {/* --- SIDEBAR --- */}
       <aside className="sidebar">
         <div className="sidebar-brand">
-          <img src={logo} alt="Relay Logo" className="brand-logo" height="15" />
+          <span>Omada Hex</span>
         </div>
 
         <nav className="sidebar-nav">
@@ -114,7 +113,7 @@ const Dashboard = () => {
               <line x1="12" y1="5" x2="12" y2="19"></line>
               <line x1="5" y1="12" x2="19" y2="12"></line>
             </svg>
-            Report Issue
+            Setup
           </button>
           
           <button className="nav-item" onClick={() => navigate('/all-reports')}>
@@ -178,10 +177,15 @@ const Dashboard = () => {
         </header>
 
         <section className="content-canvas">
+          {/* THE FLOATING LOGO */}
+          <div className="game-logo">
+            <img src={logo} alt="" />
+          </div>
           <main className="dashboard-content">
             
             {/* LEFT PILLAR */}
             <div className="left-widget-column">
+              <GameTimer />
               <PlayerRoster 
                 players={players} 
                 activePlayerIndex={activePlayerIndex} 
