@@ -1,0 +1,182 @@
+.game-action-row {
+  display: flex;
+  justify-content: center; /* Centers the 3 cards at the bottom */
+  gap: 20px;
+  width: 100%;
+  margin-top: 20px;
+}
+
+.action-card {
+  background-color: rgba(10, 10, 15, 0.6);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-radius: 12px;
+  padding: 16px;
+  width: 320px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Theme Borders */
+.dice-card { border: 1px solid rgba(1, 232, 247, 0.5); }
+.draw-card { border: 1px solid rgba(160, 32, 240, 0.5); }
+.remember-card { border: 1px solid rgba(244, 37, 26, 0.5); }
+
+/* Headers */
+.action-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.action-header h3 {
+  margin: 0;
+  font-size: 1.2rem;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.badge {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 900;
+  color: #000;
+}
+
+.action-header.cyan h3 { color: #01E8F7; }
+.action-header.cyan .badge { background-color: #01E8F7; }
+
+.action-header.purple h3 { color: #A020F0; } /* Adjust purple hex to your liking */
+.action-header.purple .badge { background-color: #A020F0; }
+
+.action-header.red h3 { color: #F4251A; }
+.action-header.red .badge { background-color: #F4251A; }
+
+/* Dividers */
+.divider {
+  border: none;
+  margin: 12px 0;
+}
+.cyan-divider { border-top: 1px solid rgba(1, 232, 247, 0.6); }
+.purple-divider { border-top: 1px solid rgba(160, 32, 240, 0.6); }
+.red-divider { border-top: 1px solid rgba(244, 37, 26, 0.6); }
+
+/* Body Layout */
+.action-body {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-grow: 1;
+  margin-bottom: 16px;
+}
+
+.action-body.clickable {
+  cursor: pointer;
+  transition: transform 0.1s;
+}
+.action-body.clickable:active { transform: scale(0.98); }
+
+.image-container img {
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
+}
+
+.text-container h4 {
+  margin: 0 0 4px 0;
+  font-size: 1.1rem;
+  text-transform: uppercase;
+}
+.cyan-text { color: #01E8F7; }
+.purple-text { color: #d884ff; }
+.red-text { color: #F4251A; }
+
+.text-container p {
+  margin: 0;
+  font-size: 0.8rem;
+  color: #ffffff;
+  text-transform: uppercase;
+}
+
+/* --- INDICATORS & BUTTONS --- */
+.indicator-row {
+  display: flex;
+  gap: 12px;
+}
+.indicator-row.single {
+  justify-content: flex-end; /* Pushes single buttons to the right */
+}
+
+.indicator {
+  flex: 1;
+  text-align: center;
+  padding: 10px;
+  border-radius: 8px;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #fff;
+  border: none;
+}
+
+/* Dice Light Indicators */
+.good-indicator {
+  background-color: #01E8F7;
+  opacity: 0.2; /* Dim by default */
+  box-shadow: 0 0 15px rgba(1, 232, 247, 0);
+}
+
+.bad-indicator {
+  background-color: #F4251A;
+  opacity: 0.2; /* Dim by default */
+  box-shadow: 0 0 15px rgba(244, 37, 26, 0);
+}
+
+/* Action Buttons */
+.purple-btn {
+  background-color: #4a0080;
+  cursor: pointer;
+  border: 1px solid #A020F0;
+  opacity: 1;
+}
+.purple-btn:hover { background-color: #6a00a0; }
+
+.red-btn {
+  background-color: #5a0000;
+  cursor: pointer;
+  border: 1px solid #F4251A;
+  opacity: 1;
+}
+.red-btn:hover { background-color: #8a0000; }
+
+/* --- BLINKING ANIMATION --- */
+.blink-active {
+  animation: blink-sequence 1.2s ease-in-out forwards;
+  opacity: 1; /* Stays fully lit after animation */
+  box-shadow: 0 0 15px currentColor;
+}
+
+@keyframes blink-sequence {
+  0% { opacity: 0.2; }
+  20% { opacity: 1; }
+  40% { opacity: 0.45; }
+  60% { opacity: 1; }
+  80% { opacity: 0.45; }
+  100% { opacity: 1; }
+}
+
+/* Quick visual shake for the rolling dice */
+.rolling {
+  animation: shake 0.2s infinite;
+}
+@keyframes shake {
+  0% { transform: rotate(0deg); }
+  25% { transform: rotate(5deg); }
+  50% { transform: rotate(0deg); }
+  75% { transform: rotate(-5deg); }
+  100% { transform: rotate(0deg); }
+}

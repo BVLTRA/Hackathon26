@@ -7,6 +7,8 @@ import logo from "../assets/images/logo.png";
 // --- Widget Imports ---
 import PlayerRoster from "./PlayerRoster";
 import DrawCards from "./DrawCards";
+import ActiveResult from "./ActiveResult";
+import { GameActionRow } from "./GameActionRow";
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -19,6 +21,37 @@ const Dashboard = () => {
     { id: 4, name: "Player 4", trophies: 900, coins: 50, flames: 4, skulls: 0 }
   ]);
   const [activePlayerIndex, setActivePlayerIndex] = useState(0);
+
+  // Tracks the result of the dice roll so the card draw knows what to pull
+  const [pendingDiceRoll, setPendingDiceRoll] = useState(null); 
+  
+  // The actual card data passed to ActiveResult.jsx
+  const [activeEvent, setActiveEvent] = useState(null); 
+
+  // --- HANDLERS ---
+  const handleDiceRolled = (alignment, value) => {
+    // Save the roll outcome in memory
+    setPendingDiceRoll({ alignment, value });
+    // Reset the active card since a new turn is starting
+    setActiveEvent(null); 
+  };
+
+  const handleCardDrawn = () => {
+    if (!pendingDiceRoll) {
+      alert("You must roll the die before drawing a card!");
+      return;
+    }
+
+    // Pick a random card number from 1 to 3
+    const randomCardNum = Math.floor(Math.random() * 3) + 1;
+
+    // Send the combined data to the Active Result component
+    setActiveEvent({
+      alignment: pendingDiceRoll.alignment,
+      imageNum: randomCardNum,
+      diceRollValue: pendingDiceRoll.value
+    });
+  };
 
   return (
     <div className="dashboard-layout">
@@ -108,20 +141,29 @@ const Dashboard = () => {
         </header>
 
         <section className="content-canvas">
-          <main className="dashboard-content">
+          <main className="dashboard-content" style={{ flexDirection: 'column' }}>
             
-            {/* Left Column for your newly imported widgets */}
-            <div className="left-widget-column">
-              <PlayerRoster 
-                players={players} 
-                activePlayerIndex={activePlayerIndex} 
-              />
-              {/* You can drop the GameControls and Add Player buttons under here */}
+            {/* TOP ROW: Roster & Result */}
+            <div style={{ display: 'flex', gap: '24px', width: '100%', flex: 1 }}>
+              <div className="left-widget-column">
+                <PlayerRoster 
+                  players={players} 
+                  activePlayerIndex={activePlayerIndex} 
+                />
+              </div>
+              
+              <div className="right-content-area">
+                 {/* This listens for the activeEvent to render the big card */}
+                 <ActiveResult cardData={activeEvent} />
+              </div>
             </div>
-            
-            {/* Right side of the dashboard */}
-            <div className="right-content-area">
-              <DrawCards />
+
+            {/* BOTTOM ROW: The 3 new widgets */}
+            <div className="bottom-widget-row">
+              <GameActionRow 
+                onDiceRolled={handleDiceRolled} 
+                onCardDrawn={handleCardDrawn} 
+              />
             </div>
             
           </main>

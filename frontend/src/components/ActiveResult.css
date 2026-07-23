@@ -1,0 +1,88 @@
+/* --- Base Container --- */
+.active-result-container {
+  background-color: rgba(10, 20, 15, 0.6); /* Slightly greenish dark tint */
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(173, 255, 47, 0.5); /* Thin green border */
+  border-radius: 12px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* --- Header & Badge --- */
+.result-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.roll-badge {
+  width: 32px;
+  height: 32px;
+  background-color: #e5ff00; /* Neon yellow */
+  color: #000000;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 900;
+  font-size: 1.2rem;
+  flex-shrink: 0;
+}
+
+.roll-badge.empty {
+  background-color: #333333;
+  color: #888888;
+}
+
+.header-title {
+  color: #e5ff00;
+  margin: 0;
+  font-size: 1.4rem;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.green-divider {
+  border: none;
+  border-top: 1px solid rgba(173, 255, 47, 0.6);
+  margin: 16px 0;
+}
+
+/* --- Card Display Area --- */
+.card-display-area {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.rendered-card-image, .card-placeholder {
+  aspect-ratio: 312 / 520; /* Locking the ratio you provided */
+  width: 100%;
+  max-width: 312px; /* Prevents it from getting absurdly huge */
+  border-radius: 12px;
+}
+
+.rendered-card-image {
+  object-fit: contain;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
+}
+
+.card-placeholder {
+  background-color: rgba(0, 0, 0, 0.4);
+  border: 2px dashed rgba(173, 255, 47, 0.3);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.card-placeholder p {
+  color: #777;
+  font-size: 1.1rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
