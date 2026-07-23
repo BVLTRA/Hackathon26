@@ -1,0 +1,123 @@
+.explain-roll-container {
+  background-color: rgba(10, 20, 15, 0.6);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(57, 255, 20, 0.5); /* Neon green border */
+  border-radius: 12px;
+  padding: 16px 20px;
+  display: flex;
+  flex-direction: column;
+  height: 220px; /* Matched to the bottom row heights */
+  box-sizing: border-box;
+}
+
+/* --- Header --- */
+.explain-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+}
+
+.explain-header h3 {
+  color: #39ff14;
+  margin: 0;
+  font-size: 1.4rem;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  flex-grow: 1;
+}
+
+.explain-badge {
+  width: 32px;
+  height: 32px;
+  background-color: #39ff14;
+  color: #000;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 900;
+  font-size: 1.2rem;
+  flex-shrink: 0;
+}
+
+.explain-badge.empty {
+  background-color: #333;
+  color: #888;
+}
+
+.header-icon-space {
+  width: 24px;
+  height: 24px;
+  /* Add your future right-side icon background here */
+}
+
+/* --- Body --- */
+.explain-body {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.explain-body.placeholder p {
+  color: #777;
+  text-align: center;
+  font-style: italic;
+}
+
+.instruction-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.instruction-header h4 {
+  margin: 0;
+  font-size: 1.1rem;
+  text-transform: uppercase;
+}
+
+.reason-text {
+  color: #aaaaaa;
+  font-size: 0.85rem;
+  margin: 0 0 4px 20px; /* Indented past the green dot */
+  text-transform: uppercase;
+}
+
+.action-text {
+  color: #ffffff;
+  font-size: 1rem;
+  margin: 0 0 0 20px; /* Indented past the green dot */
+  line-height: 1.4;
+}
+
+/* --- Button --- */
+.explain-footer {
+  margin-top: auto;
+  width: 100%;
+}
+
+.btn-green-outline {
+  width: 100%;
+  padding: 12px;
+  background-color: rgba(57, 255, 20, 0.1);
+  border: 1px solid #39ff14;
+  color: #ffffff;
+  font-weight: bold;
+  font-size: 1.1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-green-outline:hover {
+  background-color: rgba(57, 255, 20, 0.3);
+  box-shadow: 0 0 10px rgba(57, 255, 20, 0.4);
+}
+
+.btn-green-outline:active {
+  transform: scale(0.98);
+}

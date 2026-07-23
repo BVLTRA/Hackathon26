@@ -402,7 +402,7 @@
   312 / 520 = 0.6. 
 */
 .card-placeholder, .drawn-card-image {
-  aspect-ratio: 312 / 520;
+  aspect-ratio: 221 / 354;
   max-height: 350px; /* Limits how massive the card gets on large monitors */
   height: 100%;
   border-radius: 12px;
@@ -438,7 +438,8 @@
   text-transform: uppercase;
 }
 
-.drawn-card-image {
-  object-fit: contain; /* Ensures the image respects the container without stretching */
+.rendered-card-image { 
+  height: 354px;
+  width: 221px;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
 }

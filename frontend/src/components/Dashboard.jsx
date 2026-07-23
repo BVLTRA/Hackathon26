@@ -9,10 +9,14 @@ import PlayerRoster from "./PlayerRoster";
 import DrawCards from "./DrawCards";
 import ActiveResult from "./ActiveResult";
 import { GameActionRow } from "./GameActionRow";
+import ExplainRoll from "./ExplainRoll";
+
 
 const Dashboard = () => {
   const navigate = useNavigate();
   const [user, setUser] = useState(null);
+
+  
 
   const [players, setPlayers] = useState([
     { id: 1, name: "Player 1", trophies: 750, coins: 320, flames: 3, skulls: 1 },
@@ -52,6 +56,25 @@ const Dashboard = () => {
       diceRollValue: pendingDiceRoll.value
     });
   };
+
+  // Handles rotating the active player in the carousel
+  const cyclePlayer = (direction) => {
+    if (direction === 'next') {
+      setActivePlayerIndex((prev) => (prev + 1) % players.length);
+    } else {
+      setActivePlayerIndex((prev) => (prev === 0 ? players.length - 1 : prev - 1));
+    }
+  };
+
+  const handleTurnComplete = () => {
+    // Wipe the active turn data
+    setActiveEvent(null);
+    setPendingDiceRoll(null);
+    
+    // Cycle to the next player
+    cyclePlayer('next');
+  };
+  
 
   return (
     <div className="dashboard-layout">
@@ -152,13 +175,21 @@ const Dashboard = () => {
                 />
               </div>
               
-              <div className="right-content-area">
-                 {/* This listens for the activeEvent to render the big card */}
-                 <ActiveResult cardData={activeEvent} />
+              <div className="right-content-area" style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+                 {/* Active Result takes up the top space */}
+                 <div style={{ flex: 1 }}>
+                   <ActiveResult cardData={activeEvent} />
+                 </div>
+                 
+                 {/* Explain Roll sits exactly underneath it */}
+                 <ExplainRoll 
+                   cardData={activeEvent} 
+                   onTurnComplete={handleTurnComplete} 
+                 />
               </div>
             </div>
 
-            {/* BOTTOM ROW: The 3 new widgets */}
+            {/* BOTTOM ROW: The 3 action widgets */}
             <div className="bottom-widget-row">
               <GameActionRow 
                 onDiceRolled={handleDiceRolled} 

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import "./DrawCards.css"
 
 // 1. Explicitly tell the bundler these files exist so it packages them
 import GoodCard_1 from '../assets/cards/GoodCard_1.png';
