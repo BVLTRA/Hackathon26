@@ -113,8 +113,7 @@ const Dashboard = () => {
             
             {/* Right side of the dashboard */}
             <div className="right-content-area">
-               <DrawCards />
-               {/* The bottom half widget will go here later */}
+              <DrawCards />
             </div>
             
           </main>
