@@ -157,7 +157,7 @@
 .blink-active {
   animation: blink-sequence 1.2s ease-in-out forwards;
   opacity: 1; /* Stays fully lit after animation */
-  box-shadow: 0 0 15px currentColor;
+  box-shadow: 0 0 15px rgba(1, 232, 247, 0.8); /* Glowing effect */
 }
 
 @keyframes blink-sequence {
