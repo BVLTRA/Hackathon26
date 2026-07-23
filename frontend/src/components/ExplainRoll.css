@@ -7,7 +7,7 @@
   padding: 16px 20px;
   display: flex;
   flex-direction: column;
-  height: 220px; /* Matched to the bottom row heights */
+  height: 227px;
   box-sizing: border-box;
 }
 

@@ -74,6 +74,20 @@ const Dashboard = () => {
     // Cycle to the next player
     cyclePlayer('next');
   };
+
+  const handleAddPlayer = () => {
+    const newPlayer = {
+      id: players.length + 1,
+      name: `Player ${players.length + 1}`,
+      trophies: 0, // Starting stats for a new player
+      coins: 0,
+      flames: 0,
+      skulls: 0
+    };
+    
+    // Spread operator (...) takes all existing players and adds the new one to the end
+    setPlayers([...players, newPlayer]);
+  };
   
 
   return (
@@ -164,37 +178,33 @@ const Dashboard = () => {
         </header>
 
         <section className="content-canvas">
-          <main className="dashboard-content" style={{ flexDirection: 'column' }}>
+          <main className="dashboard-content">
             
-            {/* TOP ROW: Roster & Result */}
-            <div style={{ display: 'flex', gap: '24px', width: '100%', flex: 1 }}>
-              <div className="left-widget-column">
-                <PlayerRoster 
-                  players={players} 
-                  activePlayerIndex={activePlayerIndex} 
-                />
-              </div>
-              
-              <div className="right-content-area" style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
-                 {/* Active Result takes up the top space */}
-                 <div style={{ flex: 1 }}>
-                   <ActiveResult cardData={activeEvent} />
-                 </div>
-                 
-                 {/* Explain Roll sits exactly underneath it */}
-                 <ExplainRoll 
-                   cardData={activeEvent} 
-                   onTurnComplete={handleTurnComplete} 
-                 />
-              </div>
+            {/* LEFT PILLAR */}
+            <div className="left-widget-column">
+              <PlayerRoster 
+                players={players} 
+                activePlayerIndex={activePlayerIndex} 
+                onCycle={cyclePlayer}
+                onAddPlayer={handleAddPlayer}
+              />
             </div>
-
-            {/* BOTTOM ROW: The 3 action widgets */}
-            <div className="bottom-widget-row">
+            
+            {/* CENTER BASE (The floor of the U-shape) */}
+            <div className="center-action-area">
               <GameActionRow 
                 onDiceRolled={handleDiceRolled} 
                 onCardDrawn={handleCardDrawn} 
               />
+            </div>
+
+            {/* RIGHT PILLAR */}
+            <div className="right-widget-column">
+               <ActiveResult cardData={activeEvent} />
+               <ExplainRoll 
+                 cardData={activeEvent} 
+                 onTurnComplete={handleTurnComplete} 
+               />
             </div>
             
           </main>
