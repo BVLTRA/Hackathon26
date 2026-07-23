@@ -185,3 +185,260 @@
   overflow-y: auto; 
   z-index: 1; /* Orbs will sit at z-index 0 beneath this */
 }
+
+/* --- Main Layout Architecture --- */
+.dashboard-content {
+  display: flex;
+  gap: 24px;
+  padding: 24px;
+}
+
+.left-widget-column {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 320px; 
+  flex-shrink: 0; 
+}
+
+/* --- Shared Widget Mechanics --- */
+.widget {
+  background-color: #0a0a0a93;
+  color: #ffffff;
+  border-radius: 12px;
+  padding: 20px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 1px solid #333;
+}
+
+.widget h3 {
+  margin-top: 0;
+  margin-bottom: 20px;
+  font-size: 1.2rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* --- Widget 1: Player Status (330px height) --- */
+.player-status {
+  height: 330px;
+  justify-content: space-between;
+}
+
+.avatar-placeholder {
+  width: 100px;
+  height: 100px;
+  background-color: #333;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.stats-container {
+  width: 100%;
+  text-align: center;
+  background: #2a2a2a;
+  padding: 10px;
+  border-radius: 8px;
+}
+
+.status-indicator h4 span {
+  color: #4caf50; /* Green for "In Play", you can conditionally turn this red for "Dead" */
+}
+
+/* --- Widget 2: Volcano Timer (240px height) --- */
+.volcano-timer {
+  height: 200px;
+  justify-content: space-around;
+}
+
+.clock-display {
+  font-size: 3rem;
+  font-weight: bold;
+}
+
+.progress-bar-container {
+  width: 100%;
+  height: 24px;
+  background-color: #333;
+  border-radius: 12px;
+  overflow: hidden; /* Ensures the fill doesn't bleed outside the rounded corners */
+}
+
+.progress-bar-fill {
+  height: 100%;
+  background-color: #f44336; /* Red fill */
+  transition: width 1s linear; /* Smoothly animates the DOM width update */
+}
+
+/* --- Widget 3: Cup Selection --- */
+.cup-selection {
+  height: 200px;
+}
+
+.cups-container {
+  display: flex;
+  gap: 20px;
+  width: 100%;
+  flex-grow: 1;
+}
+
+.cup-placeholder {
+  flex: 1; /* Both cups take up exactly 50% of the available space */
+  background-color: #2a2a2a;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px dashed #555;
+}
+
+/* --- Right Content Area --- */
+.right-content-area {
+  align-self: flex-start; /* Ensures the right content area doesn't stretch vertically */
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 350px;
+}
+
+/* --- Widget 4: Draw Cards --- */
+.draw-cards {
+  flex: 1; /* Takes up roughly half the vertical space, assuming another flex:1 widget goes below it */
+  min-height: 400px; /* Safety net so it doesn't crush down too far */
+  display: flex;
+  flex-direction: column;
+}
+
+.draw-cards-header {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.draw-cards-header h3 {
+  margin-bottom: 0; /* Overrides the default .widget h3 margin */
+}
+
+/* Custom Toggle Switch Logic */
+.toggle-container {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background-color: #1a1a1a;
+  padding: 6px 12px;
+  border-radius: 20px;
+  cursor: pointer;
+  border: 1px solid #333;
+  user-select: none; /* Prevents text highlighting when clicking fast */
+}
+
+.toggle-container span {
+  font-size: 0.8rem;
+  color: #666;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: color 0.2s;
+}
+
+.toggle-container span.active {
+  color: #ffffff;
+  font-weight: bold;
+}
+
+.toggle-switch {
+  width: 36px;
+  height: 18px;
+  background-color: #4caf50; /* Green for Good */
+  border-radius: 10px;
+  position: relative;
+  transition: background-color 0.3s;
+}
+
+.toggle-switch::after {
+  content: '';
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 14px;
+  height: 14px;
+  background-color: #ffffff;
+  border-radius: 50%;
+  transition: transform 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+}
+
+.toggle-switch.bad {
+  background-color: #f44336; /* Red for Bad */
+}
+
+.toggle-switch.bad::after {
+  transform: translateX(18px); /* Slides the white dot to the right */
+}
+
+/* Card Interaction Area */
+.card-area {
+  flex: 1;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.drawn-card-container {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+/* 
+  Enforcing the 312x520 aspect ratio. 
+  312 / 520 = 0.6. 
+*/
+.card-placeholder, .drawn-card-image {
+  aspect-ratio: 312 / 520;
+  max-height: 350px; /* Limits how massive the card gets on large monitors */
+  height: 100%;
+  border-radius: 12px;
+}
+
+.card-placeholder {
+  background-color: #111; /* Dark backdrop matching the style in your reference image */
+  border: 2px dashed #444;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  transition: all 0.2s;
+  height: 350px;
+}
+
+.card-placeholder:hover {
+  background-color: #1a1a1a;
+  border-color: #666;
+  transform: translateY(-2px); /* Slight lift on hover */
+}
+
+.card-placeholder p {
+  color: #888;
+  font-size: 1rem;
+  line-height: 1.6;
+  pointer-events: none; /* Stops the text from interfering with the click event */
+}
+
+.card-placeholder span {
+  font-size: 0.8rem;
+  color: #555;
+  text-transform: uppercase;
+}
+
+.drawn-card-image {
+  object-fit: contain; /* Ensures the image respects the container without stretching */
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
+}
