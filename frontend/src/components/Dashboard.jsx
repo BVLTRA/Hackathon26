@@ -5,14 +5,20 @@ import "./Dashboard.css";
 import logo from "../assets/images/logo.png"; 
 
 // --- Widget Imports ---
-import PlayerStatus from "./PlayerStatus";
-import VolcanoTimer from "./VolcanoTimer";
-import CupSelection from "./CupSelection";
+import PlayerRoster from "./PlayerRoster";
 import DrawCards from "./DrawCards";
 
 const Dashboard = () => {
   const navigate = useNavigate();
   const [user, setUser] = useState(null);
+
+  const [players, setPlayers] = useState([
+    { id: 1, name: "Player 1", trophies: 750, coins: 320, flames: 3, skulls: 1 },
+    { id: 2, name: "Player 2", trophies: 400, coins: 150, flames: 0, skulls: 2 },
+    { id: 3, name: "Player 3", trophies: 900, coins: 50, flames: 4, skulls: 0 },
+    { id: 4, name: "Player 4", trophies: 900, coins: 50, flames: 4, skulls: 0 }
+  ]);
+  const [activePlayerIndex, setActivePlayerIndex] = useState(0);
 
   return (
     <div className="dashboard-layout">
@@ -106,9 +112,11 @@ const Dashboard = () => {
             
             {/* Left Column for your newly imported widgets */}
             <div className="left-widget-column">
-              <PlayerStatus />
-              <VolcanoTimer />
-              <CupSelection />
+              <PlayerRoster 
+                players={players} 
+                activePlayerIndex={activePlayerIndex} 
+              />
+              {/* You can drop the GameControls and Add Player buttons under here */}
             </div>
             
             {/* Right side of the dashboard */}

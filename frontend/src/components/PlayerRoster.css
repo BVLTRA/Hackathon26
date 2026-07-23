@@ -1,0 +1,184 @@
+.player-roster-container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+}
+
+/* --- Base Card Structure --- */
+.roster-card {
+  background-color: rgba(20, 10, 35, 0.7); /* Dark purple-tinted base */
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(160, 32, 240, 0.6); /* Thin purple border */
+  border-radius: 12px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  padding: 16px;
+}
+
+.purple-divider {
+  border: none;
+  border-top: 1px solid rgba(160, 32, 240, 0.6);
+  margin: 12px 0;
+}
+
+/* --- Active Card Specifics --- */
+.active-card {
+  display: flex;
+  flex-direction: column;
+}
+
+.card-header-title {
+  color: #00e5ff; /* Cyan title */
+  text-align: center;
+  margin: 0;
+  font-size: 1.1rem;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.active-player-layout {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  padding: 8px 0;
+}
+
+.active-avatar-wrapper {
+  flex-shrink: 0;
+}
+
+.avatar-placeholder-large {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background: radial-gradient(circle at top left, #2b5876, #4e4376);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3rem;
+  border: 2px solid #5a3d7a;
+}
+
+.active-stats-wrapper {
+  flex-grow: 1;
+}
+
+.player-name {
+  color: #ffffff;
+  margin: 0 0 10px 0;
+  font-size: 1.2rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.stats-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.stats-list li {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 1rem;
+  color: #ffffff;
+}
+
+.stat-icon {
+  font-size: 1.1rem; /* Adjust this when you swap to images */
+  width: 20px;
+  text-align: center;
+}
+
+/* --- Queue Cards Specifics --- */
+.queued-players-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.queue-card {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 12px 16px;
+}
+
+.avatar-placeholder-small {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: radial-gradient(circle at top left, #1e1e1e, #3a2e4d);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  border: 1px solid #5a3d7a;
+}
+
+.queue-info-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.queue-status-header {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.queue-player-name {
+  color: #ffffff;
+  margin: 0;
+  font-size: 1.1rem;
+  text-transform: uppercase;
+}
+
+/* --- Status Indicators --- */
+.status-footer {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.glow-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.glow-dot.green {
+  background-color: #39ff14;
+  box-shadow: 0 0 8px #39ff14;
+}
+
+.glow-dot.orange {
+  background-color: #ff8c00;
+  box-shadow: 0 0 6px #ff8c00;
+  width: 6px;
+  height: 6px;
+}
+
+.status-label {
+  color: #ffffff;
+  font-weight: bold;
+  letter-spacing: 0.5px;
+}
+
+.status-label.small {
+  font-size: 0.7rem;
+}
+
+.status-text {
+  font-weight: bold;
+}
+
+.green-text { color: #39ff14; }
+.gray-text { color: #aaaaaa; font-size: 0.7rem; letter-spacing: 0.5px;}
