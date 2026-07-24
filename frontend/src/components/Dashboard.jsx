@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
+import Marquee from "react-fast-marquee";
 import "./Dashboard.css";
 import logo from "../assets/images/logo.png";
 
@@ -199,6 +200,9 @@ const Dashboard = () => {
           </div>
         </main>
       </section>
+      <footer>
+        <Marquee></Marquee>
+      </footer>
     </>
   );
 };

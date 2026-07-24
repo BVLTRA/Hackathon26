@@ -73,3 +73,39 @@
 .btn-lets-play:active {
   transform: scale(0.96);
 }
+
+/* Ensure the layout acts as the anchor point for absolute children */
+.landing-layout {
+  position: relative;
+}
+
+/* --- MARQUEE STYLES --- */
+.landing-marquee-container {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100vw;
+  padding: 16px 0;
+  background-color: rgba(29, 28, 28, 0.4); 
+  border-top: 1px solid rgba(255, 69, 0, 0.3);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 10;
+}
+
+.marquee-badge {
+  height: 48px; /* Scales the badges down uniformly */
+  width: auto;
+  margin: 0 40px; /* Creates the gap between cloned badges */
+  opacity: 0.8;
+  filter: drop-shadow(0 0 8px rgba(255, 69, 0, 0)); 
+  /* Invisible shadow to prep for hover */
+  transition: opacity 0.2s ease, transform 0.2s ease, filter 0.2s ease;
+  cursor: pointer;
+}
+
+.marquee-badge:hover {
+  opacity: 1;
+  transform: scale(1.1);
+  filter: drop-shadow(0 0 12px rgba(255, 69, 0, 0.6)); /* Fiery glow on hover */
+}
