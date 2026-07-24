@@ -16,6 +16,7 @@ const Dashboard = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const [user, setUser] = useState(null);
+  const [winner, setWinner] = useState(null);
 
   const initialPlayers = location.state?.customPlayers || [
     {
@@ -94,8 +95,36 @@ const Dashboard = () => {
     }
   };
 
+  const handleEliminatePlayer = (playerId) => {
+    setPlayers(prev => {
+      const remaining = prev.filter(p => p.id !== playerId);
+      if (activePlayerIndex >= remaining.length) {
+        setActivePlayerIndex(0);
+      }
+      return remaining;
+    });
+  };
+
+  const handleDeclareWin = (player) => {
+    setWinner(player);
+  };
+
   return (
     <div className="dashboard-layout">
+
+      {/* --- GLOBAL WIN BANNER --- */}
+      {winner && (
+        <div className="victory-overlay">
+          <div className="victory-banner">
+            <h1>{winner.name} ESCAPED!</h1>
+            <p>They survived the Magma Rush.</p>
+            <button className="btn-start-game" onClick={handleResetGame}>
+              START NEW GAME
+            </button>
+          </div>
+        </div>
+      )}
+
       {/* --- SIDEBAR --- */}
       <aside className="sidebar">
         <div className="sidebar-brand">
@@ -207,7 +236,6 @@ const Dashboard = () => {
         <header className="viewport-header">
           <h1 className="current-page-title">Dashboard</h1>
           <button className="header-action-btn" onClick={handleResetGame}>
-            {/* Swapped to a 'refresh' icon */}
             <svg 
               width="14" height="14" viewBox="0 0 24 24" 
               fill="none" stroke="currentColor" strokeWidth="2" 
@@ -228,15 +256,17 @@ const Dashboard = () => {
           <main className="dashboard-content">
             {/* LEFT PILLAR */}
             <div className="left-widget-column">
-              <GameTimer autoStart={shouldAutoStart} />
+              <GameTimer autoStart={shouldAutoStart} gameEnded={!!winner} />
               <PlayerRoster
                 players={players}
                 activePlayerIndex={activePlayerIndex}
                 onCycle={cyclePlayer}
+                onEliminate={handleEliminatePlayer}
+                onDeclareWin={handleDeclareWin}
               />
             </div>
 
-            {/* CENTER BASE (The floor of the U-shape) */}
+            {/* CENTER BASE */}
             <div className="center-action-area">
               <GameActionRow
                 onDiceRolled={handleDiceRolled}

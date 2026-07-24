@@ -264,3 +264,47 @@
   margin: 0;
 
 }
+
+/* --- Victory Overlay --- */
+.victory-overlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-color: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(10px);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.victory-banner {
+  background: linear-gradient(90deg, transparent, rgba(57, 255, 20, 0.2), transparent);
+  border-top: 2px solid #39ff14;
+  border-bottom: 2px solid #39ff14;
+  width: 100vw;
+  text-align: center;
+  padding: 40px 0;
+  animation: slideIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.victory-banner h1 {
+  font-size: 5rem;
+  color: #39ff14;
+  text-transform: uppercase;
+  letter-spacing: 10px;
+  margin: 0;
+  text-shadow: 0 0 30px #39ff14;
+}
+
+.victory-banner p {
+  font-size: 1.5rem;
+  color: #fff;
+  margin-bottom: 30px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+@keyframes slideIn {
+  from { transform: scaleY(0); opacity: 0; }
+  to { transform: scaleY(1); opacity: 1; }
+}

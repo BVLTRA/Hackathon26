@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import './GameTimer.css';
 
-const GameTimer = ({ autoStart = false }) => {
+const GameTimer = ({ autoStart = false, gameEnded = false }) => {
   const [time, setTime] = useState(0);
   const [isActive, setIsActive] = useState(autoStart);
   const [isPaused, setIsPaused] = useState(false);
 
   useEffect(() => {
     let interval = null;
-    if (isActive && !isPaused) {
+    // Condition updated: Don't tick if the game has ended
+    if (isActive && !isPaused && !gameEnded) {
       interval = setInterval(() => {
         setTime((time) => time + 1);
       }, 1000);
@@ -16,7 +17,7 @@ const GameTimer = ({ autoStart = false }) => {
       clearInterval(interval);
     }
     return () => clearInterval(interval);
-  }, [isActive, isPaused]);
+  }, [isActive, isPaused, gameEnded]);
 
   const handleStart = () => {
     setIsActive(true);
