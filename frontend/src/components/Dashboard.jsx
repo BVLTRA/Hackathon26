@@ -88,6 +88,12 @@ const Dashboard = () => {
     cyclePlayer("next");
   };
 
+  const handleResetGame = () => {
+    if (window.confirm("Are you sure? You will lose all your progress.")) {
+      navigate('/setup');
+    }
+  };
+
   return (
     <div className="dashboard-layout">
       {/* --- SIDEBAR --- */}
@@ -119,7 +125,7 @@ const Dashboard = () => {
             Dashboard
           </button>
 
-          <button className="nav-item" onClick={() => navigate("/setup")}>
+          {/* <button className="nav-item" onClick={() => navigate("/setup")}>
             <svg
               width="16"
               height="16"
@@ -136,9 +142,9 @@ const Dashboard = () => {
               <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
             </svg>
             Game Setup
-          </button>
+          </button> */}
 
-          <button className="nav-item" onClick={() => navigate("/all-reports")}>
+          <button className="nav-item" onClick={() => navigate("")}>
             <svg
               width="16"
               height="16"
@@ -159,7 +165,7 @@ const Dashboard = () => {
             Credits
           </button>
 
-          <button className="nav-item" onClick={() => navigate("/analytics")}>
+          {/* <button className="nav-item" onClick={() => navigate("/analytics")}>
             <svg
               width="16"
               height="16"
@@ -175,7 +181,7 @@ const Dashboard = () => {
               <line x1="6" y1="20" x2="6" y2="14"></line>
             </svg>
             Analytics
-          </button>
+          </button> */}
 
           <button className="nav-item">
             <svg
@@ -200,19 +206,15 @@ const Dashboard = () => {
       <main className="main-viewport">
         <header className="viewport-header">
           <h1 className="current-page-title">Dashboard</h1>
-          <button className="header-action-btn">
-            <svg
-              width="14"
-              height="14"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
+          <button className="header-action-btn" onClick={handleResetGame}>
+            {/* Swapped to a 'refresh' icon */}
+            <svg 
+              width="14" height="14" viewBox="0 0 24 24" 
+              fill="none" stroke="currentColor" strokeWidth="2" 
+              strokeLinecap="round" strokeLinejoin="round"
             >
-              <line x1="12" y1="5" x2="12" y2="19"></line>
-              <line x1="5" y1="12" x2="19" y2="12"></line>
+              <polyline points="1 4 1 10 7 10"></polyline>
+              <path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"></path>
             </svg>
             End Game
           </button>
