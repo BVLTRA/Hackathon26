@@ -1,29 +1,25 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import AuthFlow from './pages/AuthFlow';
-import Dashboard from './components/Dashboard';
-import ReportIssue from './pages/ReportIssue';
-import Analytics from './pages/Analytics';
-import Account from './pages/Account';
-import ProtectedRoute from './components/ProtectedRoute';
 
-const isAuthenticated = () => {
-  return !!localStorage.getItem('gridlock_token');
-};
+// Import your actual game components
+import GameSetup from './pages/GameSetup'; // This replaces your old ReportIssue import
+import Dashboard from './components/Dashboard';
+import Analytics from './pages/Analytics'; // Keeping this if you still plan to use it
 
 const App = () => {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={isAuthenticated() ? <Navigate to="/dashboard" replace /> : <AuthFlow />} />
+        {/* Instantly bounces anyone hitting the root domain straight to the Setup screen */}
+        <Route path="/" element={<Navigate to="/setup" replace />} />
         
-        <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
+        {/* Unprotected, fully open routes */}
+        <Route path="/setup" element={<GameSetup />} />
+        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/analytics" element={<Analytics />} />
         
-        <Route path="/report-issue" element={<ProtectedRoute><ReportIssue /></ProtectedRoute>} />
-
-        <Route path="/analytics" element={<ProtectedRoute><Analytics /></ProtectedRoute>} />
-
-        <Route path="/account" element={<ProtectedRoute><Account /></ProtectedRoute>} />
+        {/* A catch-all safety net: if they type a URL that doesn't exist, send them to Setup */}
+        <Route path="*" element={<Navigate to="/setup" replace />} />
       </Routes>
     </Router>
   );

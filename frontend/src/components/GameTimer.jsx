@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import './GameTimer.css';
 
-const GameTimer = () => {
+const GameTimer = ({ autoStart = false }) => {
   const [time, setTime] = useState(0);
-  const [isActive, setIsActive] = useState(false);
+  const [isActive, setIsActive] = useState(autoStart);
   const [isPaused, setIsPaused] = useState(false);
 
   useEffect(() => {

@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from "react-router-dom";
 import IssueCard from "./IssueCard";
 import "./Dashboard.css";
-import logo from "../assets/images/logo.png"; 
+import logo from "../assets/images/logo.png";
 
 // --- Widget Imports ---
 import PlayerRoster from "./PlayerRoster";
@@ -12,33 +12,45 @@ import { GameActionRow } from "./GameActionRow";
 import ExplainRoll from "./ExplainRoll";
 import GameTimer from "./GameTimer";
 
-
 const Dashboard = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const [user, setUser] = useState(null);
 
-  
+  const initialPlayers = location.state?.customPlayers || [
+    {
+      id: 1,
+      name: "Player 1",
+      avatar: 0,
+      trophies: 0,
+      coins: 0,
+      flames: 0,
+      skulls: 0,
+    },
+    {
+      id: 2,
+      name: "Player 2",
+      avatar: 1,
+      trophies: 0,
+      coins: 0,
+      flames: 0,
+      skulls: 0,
+    },
+  ];
 
-  const [players, setPlayers] = useState([
-    { id: 1, name: "Player 1", trophies: 750, coins: 320, flames: 3, skulls: 1 },
-    { id: 2, name: "Player 2", trophies: 400, coins: 150, flames: 0, skulls: 2 },
-    { id: 3, name: "Player 3", trophies: 900, coins: 50, flames: 4, skulls: 0 },
-    { id: 4, name: "Player 4", trophies: 900, coins: 50, flames: 4, skulls: 0 }
-  ]);
+  const shouldAutoStart = location.state?.autoStart || false;
+
+  const [players, setPlayers] = useState(initialPlayers);
   const [activePlayerIndex, setActivePlayerIndex] = useState(0);
-
-  // Tracks the result of the dice roll so the card draw knows what to pull
-  const [pendingDiceRoll, setPendingDiceRoll] = useState(null); 
-  
-  // The actual card data passed to ActiveResult.jsx
-  const [activeEvent, setActiveEvent] = useState(null); 
+  const [pendingDiceRoll, setPendingDiceRoll] = useState(null);
+  const [activeEvent, setActiveEvent] = useState(null);
 
   // --- HANDLERS ---
   const handleDiceRolled = (alignment, value) => {
     // Save the roll outcome in memory
     setPendingDiceRoll({ alignment, value });
     // Reset the active card since a new turn is starting
-    setActiveEvent(null); 
+    setActiveEvent(null);
   };
 
   const handleCardDrawn = () => {
@@ -52,16 +64,18 @@ const Dashboard = () => {
     setActiveEvent({
       alignment: pendingDiceRoll.alignment,
       imageNum: matchedCardNum, // The 1:1 connection happens here
-      diceRollValue: pendingDiceRoll.value
+      diceRollValue: pendingDiceRoll.value,
     });
   };
 
   // Handles rotating the active player in the carousel
   const cyclePlayer = (direction) => {
-    if (direction === 'next') {
+    if (direction === "next") {
       setActivePlayerIndex((prev) => (prev + 1) % players.length);
     } else {
-      setActivePlayerIndex((prev) => (prev === 0 ? players.length - 1 : prev - 1));
+      setActivePlayerIndex((prev) =>
+        prev === 0 ? players.length - 1 : prev - 1,
+      );
     }
   };
 
@@ -69,25 +83,10 @@ const Dashboard = () => {
     // Wipe the active turn data
     setActiveEvent(null);
     setPendingDiceRoll(null);
-    
-    // Cycle to the next player
-    cyclePlayer('next');
-  };
 
-  const handleAddPlayer = () => {
-    const newPlayer = {
-      id: players.length + 1,
-      name: `Player ${players.length + 1}`,
-      trophies: 0, // Starting stats for a new player
-      coins: 0,
-      flames: 0,
-      skulls: 0
-    };
-    
-    // Spread operator (...) takes all existing players and adds the new one to the end
-    setPlayers([...players, newPlayer]);
+    // Cycle to the next player
+    cyclePlayer("next");
   };
-  
 
   return (
     <div className="dashboard-layout">
@@ -98,8 +97,20 @@ const Dashboard = () => {
         </div>
 
         <nav className="sidebar-nav">
-          <button className="nav-item active" onClick={() => navigate('/dashboard')}>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <button
+            className="nav-item active"
+            onClick={() => navigate("/dashboard")}
+          >
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
               <rect x="3" y="3" width="7" height="7" rx="1"></rect>
               <rect x="14" y="3" width="7" height="7" rx="1"></rect>
               <rect x="14" y="14" width="7" height="7" rx="1"></rect>
@@ -108,16 +119,36 @@ const Dashboard = () => {
             Dashboard
           </button>
 
-          <button className="nav-item" onClick={() => navigate('/report-issue')}>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <line x1="12" y1="5" x2="12" y2="19"></line>
-              <line x1="5" y1="12" x2="19" y2="12"></line>
+          <button className="nav-item" onClick={() => navigate("/setup")}>
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+              <circle cx="9" cy="7" r="4"></circle>
+              <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+              <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
             </svg>
-            Setup
+            Game Setup
           </button>
-          
-          <button className="nav-item" onClick={() => navigate('/all-reports')}>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+
+          <button className="nav-item" onClick={() => navigate("/all-reports")}>
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
               <path d="M8 2v4"></path>
               <path d="M16 2v4"></path>
               <rect x="4" y="8" width="16" height="14" rx="2"></rect>
@@ -125,42 +156,44 @@ const Dashboard = () => {
               <path d="M9 18h6"></path>
               <path d="M12 11v8"></path>
             </svg>
-            All Reports
+            Credits
           </button>
-          
-          <button className="nav-item" onClick={() => navigate('/analytics')}>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+
+          <button className="nav-item" onClick={() => navigate("/analytics")}>
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
               <line x1="18" y1="20" x2="18" y2="10"></line>
               <line x1="12" y1="20" x2="12" y2="4"></line>
               <line x1="6" y1="20" x2="6" y2="14"></line>
             </svg>
             Analytics
           </button>
-          
+
           <button className="nav-item">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
               <circle cx="12" cy="12" r="3"></circle>
               <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
             </svg>
             Settings
           </button>
         </nav>
-
-        <div className="sidebar-user">
-          <div className="user-avatar">{user ? user.name.charAt(0) : "U"}</div>
-          <div className="user-info">
-            <span className="user-name">
-              {user ? `${user.name} ${user.surname}` : "User"}
-            </span>
-          </div>
-          <button className="logout-icon">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
-              <polyline points="16 17 21 12 16 7"></polyline>
-              <line x1="21" y1="12" x2="9" y2="12"></line>
-            </svg>
-          </button>
-        </div>
       </aside>
 
       {/* --- MAIN VIEWPORT --- */}
@@ -168,7 +201,16 @@ const Dashboard = () => {
         <header className="viewport-header">
           <h1 className="current-page-title">Dashboard</h1>
           <button className="header-action-btn">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <svg
+              width="14"
+              height="14"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
               <line x1="12" y1="5" x2="12" y2="19"></line>
               <line x1="5" y1="12" x2="19" y2="12"></line>
             </svg>
@@ -182,35 +224,32 @@ const Dashboard = () => {
             <img src={logo} alt="" />
           </div>
           <main className="dashboard-content">
-            
             {/* LEFT PILLAR */}
             <div className="left-widget-column">
-              <GameTimer />
-              <PlayerRoster 
-                players={players} 
-                activePlayerIndex={activePlayerIndex} 
+              <GameTimer autoStart={shouldAutoStart} />
+              <PlayerRoster
+                players={players}
+                activePlayerIndex={activePlayerIndex}
                 onCycle={cyclePlayer}
-                onAddPlayer={handleAddPlayer}
               />
             </div>
-            
+
             {/* CENTER BASE (The floor of the U-shape) */}
             <div className="center-action-area">
-              <GameActionRow 
-                onDiceRolled={handleDiceRolled} 
-                onCardDrawn={handleCardDrawn} 
+              <GameActionRow
+                onDiceRolled={handleDiceRolled}
+                onCardDrawn={handleCardDrawn}
               />
             </div>
 
             {/* RIGHT PILLAR */}
             <div className="right-widget-column">
-               <ActiveResult cardData={activeEvent} />
-               <ExplainRoll 
-                 cardData={activeEvent} 
-                 onTurnComplete={handleTurnComplete} 
-               />
+              <ActiveResult cardData={activeEvent} />
+              <ExplainRoll
+                cardData={activeEvent}
+                onTurnComplete={handleTurnComplete}
+              />
             </div>
-            
           </main>
         </section>
       </main>
