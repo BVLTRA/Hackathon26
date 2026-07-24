@@ -54,7 +54,7 @@
 .action-header.purple .badge { background-color: #a020f000; }
 
 .action-header.red h3 { color: #F4251A; }
-.action-header.red .badge { background-color: #F4251A; }
+.action-header.red .badge { background-color: #f4251a00; }
 
 /* Dividers */
 .divider {
@@ -180,3 +180,62 @@
   75% { transform: rotate(-5deg); }
   100% { transform: rotate(0deg); }
 }
+
+/* --- EDIT STATS WIDGET --- */
+.edit-stats-card { 
+  border: 1px solid rgba(255, 140, 0, 0.5); 
+}
+
+.action-header.orange h3 { color: #ff8c00; }
+.action-header.orange .badge { background-color: #ff8c0000; color: #000; }
+.orange-divider { border-top: 1px solid rgba(255, 140, 0, 0.6); }
+
+.edit-stats-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  flex-grow: 1;
+  align-items: center;
+}
+
+.stat-edit-box {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(255, 140, 0, 0.3);
+  border-radius: 6px;
+  padding: 6px 8px;
+}
+
+.stat-edit-icon {
+  font-size: 1.1rem;
+}
+
+.stat-edit-controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.stat-edit-val {
+  font-weight: bold;
+  font-size: 1rem;
+  color: #fff;
+  min-width: 14px;
+  text-align: center;
+}
+
+.stat-edit-btn {
+  background: transparent;
+  border: none;
+  color: #888;
+  font-size: 1.2rem;
+  font-weight: bold;
+  cursor: pointer;
+  padding: 0 4px;
+  transition: color 0.1s, transform 0.1s;
+}
+
+.stat-edit-btn:hover { color: #ff8c00; }
+.stat-edit-btn:active { transform: scale(0.8); }

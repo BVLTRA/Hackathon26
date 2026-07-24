@@ -1,6 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import './PlayerRoster.css';
 
+// Importing avatars
+import Avatar_1 from '../assets/images/Avatar_1.png';
+import Avatar_2 from '../assets/images/Avatar_2.png';
+import Avatar_3 from '../assets/images/Avatar_3.png';
+import Avatar_4 from '../assets/images/Avatar_4.png';
+
+const avatarImages = [Avatar_1, Avatar_2, Avatar_3, Avatar_4];
+
 const PlayerRoster = ({ players, activePlayerIndex, onEliminate, onDeclareWin }) => {
   // --- LOCAL STATE FOR HOVER AND RIGHT CLICK ---
   const [tooltip, setTooltip] = useState({ show: false, x: 0, y: 0, player: null });
@@ -32,7 +40,11 @@ const PlayerRoster = ({ players, activePlayerIndex, onEliminate, onDeclareWin })
         <hr className="purple-divider" />
         <div className="active-player-layout">
           <div className="active-avatar-wrapper">
-            <div className="avatar-placeholder-large">🤖</div>
+            <img 
+               src={avatarImages[activePlayer.avatar] || avatarImages[0]} 
+               alt="Active Player" 
+               className="avatar-image-large" 
+             />
           </div>
           <div className="active-stats-wrapper">
             <h2 className="player-name">{activePlayer.name}</h2>
@@ -72,7 +84,11 @@ const PlayerRoster = ({ players, activePlayerIndex, onEliminate, onDeclareWin })
               }}
             >
               <div className="queue-avatar-wrapper">
-                <div className="avatar-placeholder-small">🤖</div>
+                <img 
+                   src={avatarImages[player.avatar] || avatarImages[0]} 
+                   alt="Queued Player" 
+                   className="avatar-image-small" 
+                 />
               </div>
               <div className="queue-info-wrapper">
                 <div className="queue-status-header">

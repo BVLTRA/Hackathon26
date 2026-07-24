@@ -13,18 +13,19 @@ import CardStackImg from '../assets/images/CardStack.png';
 
 import BadgeDice from '../assets/badges/BadgeDice.png'
 import BadgeCards from '../assets/badges/BadgeCards.png'
+import BadgeEdit from '../assets/badges/BadgeEdit.png'
 
 const diceImages = {
   good: [GoodRoll_1, GoodRoll_2, GoodRoll_3],
   bad: [BadRoll_1, BadRoll_2, BadRoll_3]
 };
 
-export const GameActionRow = ({ onDiceRolled, onCardDrawn }) => {
+export const GameActionRow = ({ onDiceRolled, onCardDrawn, activePlayer, onUpdateStat }) => {
   return (
     <div className="game-action-row">
       <DiceWidget onRollComplete={onDiceRolled} />
       <DrawWidget onDrawCard={onCardDrawn} />
-      <PlaceholderWidget />
+      <EditStatsWidget activePlayer={activePlayer} onUpdateStat={onUpdateStat} />
     </div>
   );
 };
@@ -126,30 +127,35 @@ const DrawWidget = ({ onDrawCard }) => {
   );
 };
 
-// --- WIDGET 3: PLACEHOLDER (RED) ---
-const PlaceholderWidget = () => {
-  return (
-    <div className="action-card remember-card">
-      <div className="action-header red">
-        <span className="badge">4</span>
-        <h3>Remember</h3>
-      </div>
-      <hr className="divider red-divider" />
-      
-      <div className="action-body">
-        <div className="image-container">
-          <div className="info-icon">i</div>
-        </div>
-        <div className="text-container">
-          <h4 className="red-text">Resolve & Tell Player Result</h4>
-          <p>And reveal moves</p>
-        </div>
-      </div>
+// --- WIDGET 3: EDIT ACTIVE STATS ---
+const EditStatsWidget = ({ activePlayer, onUpdateStat }) => {
+  if (!activePlayer) return null;
 
-      <div className="indicator-row single">
-        <button className="indicator red-btn">
-          REVEAL
-        </button>
+  // Reusable sub-component for the + / - buttons
+  const StatBox = ({ icon, statKey, value }) => (
+    <div className="stat-edit-box">
+      <span className="stat-edit-icon">{icon}</span>
+      <div className="stat-edit-controls">
+        <button className="stat-edit-btn minus" onClick={() => onUpdateStat(statKey, -1)}>−</button>
+        <span className="stat-edit-val">{value}</span>
+        <button className="stat-edit-btn plus" onClick={() => onUpdateStat(statKey, 1)}>+</button>
+      </div>
+    </div>
+  );
+
+  return (
+    <div className="action-card edit-stats-card">
+      <div className="action-header orange">
+        <span className="badge"><img src={BadgeEdit} alt="" className='roll-badge-image' /></span>
+        <h3>Edit Stats</h3>
+      </div>
+      <hr className="divider orange-divider" />
+      
+      <div className="edit-stats-grid">
+        <StatBox icon="🏆" statKey="trophies" value={activePlayer.trophies} />
+        <StatBox icon="🪙" statKey="coins" value={activePlayer.coins} />
+        <StatBox icon="🔥" statKey="flames" value={activePlayer.flames} />
+        <StatBox icon="💀" statKey="skulls" value={activePlayer.skulls} />
       </div>
     </div>
   );

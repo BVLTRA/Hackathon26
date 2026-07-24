@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import './GameSetup.css';
 import logo from "../assets/images/logo.png"; 
 
-// 1. Explicitly import the avatars so the bundler packages them
+// Importing avatars
 import Avatar_1 from '../assets/images/Avatar_1.png';
 import Avatar_2 from '../assets/images/Avatar_2.png';
 import Avatar_3 from '../assets/images/Avatar_3.png';

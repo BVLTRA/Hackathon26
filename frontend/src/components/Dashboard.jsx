@@ -82,20 +82,37 @@ const Dashboard = () => {
     // Wipe the active turn data
     setActiveEvent(null);
     setPendingDiceRoll(null);
-
     // Cycle to the next player
     cyclePlayer("next");
   };
 
+  const handleUpdateStat = (statName, delta) => {
+    setPlayers((prev) => {
+      const updated = [...prev];
+      // We use the activePlayerIndex to ensure we only ever edit the "In Play" player
+      const activeId = updated[activePlayerIndex].id;
+      const playerIdx = updated.findIndex((p) => p.id === activeId);
+
+      if (playerIdx !== -1) {
+        updated[playerIdx] = {
+          ...updated[playerIdx],
+          // Math.max prevents stats from dropping below 0
+          [statName]: Math.max(0, updated[playerIdx][statName] + delta),
+        };
+      }
+      return updated;
+    });
+  };
+
   const handleResetGame = () => {
     if (window.confirm("Are you sure? You will lose all your progress.")) {
-      navigate('/setup');
+      navigate("/setup");
     }
   };
 
   const handleEliminatePlayer = (playerId) => {
-    setPlayers(prev => {
-      const remaining = prev.filter(p => p.id !== playerId);
+    setPlayers((prev) => {
+      const remaining = prev.filter((p) => p.id !== playerId);
       if (activePlayerIndex >= remaining.length) {
         setActivePlayerIndex(0);
       }
@@ -125,7 +142,16 @@ const Dashboard = () => {
       <header className="viewport-header">
         <h1 className="current-page-title">Dashboard</h1>
         <button className="header-action-btn" onClick={handleResetGame}>
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <svg
+            width="14"
+            height="14"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
             <polyline points="1 4 1 10 7 10"></polyline>
             <path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"></path>
           </svg>
@@ -141,23 +167,35 @@ const Dashboard = () => {
         <main className="dashboard-content">
           <div className="left-widget-column">
             <GameTimer autoStart={shouldAutoStart} gameEnded={!!winner} />
-            <PlayerRoster 
-              players={players} 
-              activePlayerIndex={activePlayerIndex} 
+            <PlayerRoster
+              players={players}
+              activePlayerIndex={activePlayerIndex}
               onEliminate={handleEliminatePlayer}
               onDeclareWin={handleDeclareWin}
             />
           </div>
-          
+
           <div className="center-action-area">
-            <GameActionRow onDiceRolled={handleDiceRolled} onCardDrawn={handleCardDrawn} />
+            <GameActionRow 
+              onDiceRolled={handleDiceRolled} 
+              onCardDrawn={handleCardDrawn} 
+              /* Pass the active player and the updater function down */
+              activePlayer={players[activePlayerIndex]}
+              onUpdateStat={handleUpdateStat}
+            />
           </div>
 
-          <div className="right-widget-column" style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
-             <div style={{ flex: 1 }}>
-               <ActiveResult cardData={activeEvent} />
-             </div>
-             <ExplainRoll cardData={activeEvent} onTurnComplete={handleTurnComplete} />
+          <div
+            className="right-widget-column"
+            style={{ display: "flex", flexDirection: "column", gap: "20px" }}
+          >
+            <div style={{ flex: 1 }}>
+              <ActiveResult cardData={activeEvent} />
+            </div>
+            <ExplainRoll
+              cardData={activeEvent}
+              onTurnComplete={handleTurnComplete}
+            />
           </div>
         </main>
       </section>
