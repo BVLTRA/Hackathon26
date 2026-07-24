@@ -1,6 +1,5 @@
 import React from 'react';
 import { Outlet, useNavigate, useLocation } from 'react-router-dom';
-import logo from '../assets/images/logo.png';
 import './Dashboard.css'; 
 
 const SharedLayout = () => {
