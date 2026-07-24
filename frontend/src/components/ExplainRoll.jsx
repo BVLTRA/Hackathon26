@@ -1,5 +1,6 @@
 import React from 'react';
 import './ExplainRoll.css';
+import BadgeResult from '../assets/badges/BadgeResult.png'
 
 const ExplainRoll = ({ cardData, onTurnComplete }) => {
   
@@ -28,7 +29,7 @@ const ExplainRoll = ({ cardData, onTurnComplete }) => {
     return (
       <div className="widget explain-roll-container empty">
         <div className="explain-header">
-          <div className="explain-badge empty">-</div>
+          <div className="explain-badge empty"><img src={BadgeResult} alt="" className='roll-badge-image' /></div>
           <h3>Explain Roll</h3>
         </div>
         <hr className="green-divider" />
@@ -46,7 +47,7 @@ const ExplainRoll = ({ cardData, onTurnComplete }) => {
     <div className="widget explain-roll-container">
       <div className="explain-header">
         {/* The Badge matching your mockup */}
-        <div className="explain-badge">7</div>
+        <div className="explain-badge"><img src={BadgeResult} alt="" className='roll-badge-image' /></div>
         <h3>Explain Roll</h3>
         {/* Space for the right-side icon you mentioned */}
         <div className="header-icon-space"></div>

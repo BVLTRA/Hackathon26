@@ -31,7 +31,7 @@
 .explain-badge {
   width: 32px;
   height: 32px;
-  background-color: #39ff14;
+  background-color: #37ff1400;
   color: #000;
   border-radius: 50%;
   display: flex;
@@ -43,7 +43,7 @@
 }
 
 .explain-badge.empty {
-  background-color: #333;
+  background-color: #33333300;
   color: #888;
 }
 

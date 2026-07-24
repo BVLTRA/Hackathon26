@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import './GameActionRow.css';
 
 // --- DICE IMAGES MAP ---
-// Replace with your actual paths
 import GoodRoll_1 from '../assets/images/GoodRoll_1.png';
 import GoodRoll_2 from '../assets/images/GoodRoll_2.png';
 import GoodRoll_3 from '../assets/images/GoodRoll_3.png';
@@ -10,8 +9,10 @@ import BadRoll_1 from '../assets/images/BadRoll_1.png';
 import BadRoll_2 from '../assets/images/BadRoll_2.png';
 import BadRoll_3 from '../assets/images/BadRoll_3.png';
 
-// Placeholders for your static card images
 import CardStackImg from '../assets/images/CardStack.png'; 
+
+import BadgeDice from '../assets/badges/BadgeDice.png'
+import BadgeCards from '../assets/badges/BadgeCards.png'
 
 const diceImages = {
   good: [GoodRoll_1, GoodRoll_2, GoodRoll_3],
@@ -69,7 +70,7 @@ const DiceWidget = ({ onRollComplete }) => {
   return (
     <div className="action-card dice-card">
       <div className="action-header cyan">
-        <span className="badge">2</span>
+        <span className="badge"><img src={BadgeDice} alt="" className='roll-badge-image' /></span>
         <h3>Roll The Die</h3>
       </div>
       <hr className="divider cyan-divider" />
@@ -101,7 +102,7 @@ const DrawWidget = ({ onDrawCard }) => {
   return (
     <div className="action-card draw-card">
       <div className="action-header purple">
-        <span className="badge">3</span>
+        <span className="badge"><img src={BadgeCards} alt="" className='roll-badge-image' /></span>
         <h3>Draw a Card</h3>
       </div>
       <hr className="divider purple-divider" />

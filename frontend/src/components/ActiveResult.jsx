@@ -1,7 +1,7 @@
 import React from 'react';
 import './ActiveResult.css';
 
-// 1. Explicitly import the 3 cards for each deck
+// Explicitly import the 3 cards for each deck and Badge
 import GoodCard_1 from '../assets/cards/GoodCard_1.png';
 import GoodCard_2 from '../assets/cards/GoodCard_2.png';
 import GoodCard_3 from '../assets/cards/GoodCard_3.png';
@@ -10,7 +10,9 @@ import BadCard_1 from '../assets/cards/BadCard_1.png';
 import BadCard_2 from '../assets/cards/BadCard_2.png';
 import BadCard_3 from '../assets/cards/BadCard_3.png';
 
-// 2. Map them for dynamic access
+import BadgeCard from '../assets/badges/BadgeResActive.png'
+
+// Map them for dynamic access
 const cardImages = {
   GoodCard_1, GoodCard_2, GoodCard_3,
   BadCard_1, BadCard_2, BadCard_3
@@ -22,7 +24,7 @@ const ActiveResult = ({ cardData }) => {
     return (
       <div className="active-result-container">
         <div className="result-header">
-          <div className="roll-badge empty">-</div>
+          <div className="roll-badge"><img src={BadgeCard} alt="" className='roll-badge-image' /></div>
           <h3 className="header-title">Active Result</h3>
         </div>
         <hr className="green-divider" />
@@ -36,7 +38,7 @@ const ActiveResult = ({ cardData }) => {
     );
   }
 
-  // Mechanism: Construct the exact key to pull the bundled image from our map
+  // Construct the exact key to pull the bundled image from our map
   const imagePrefix = cardData.alignment === 'good' ? 'GoodCard' : 'BadCard';
   const imageKey = `${imagePrefix}_${cardData.imageNum}`;
   const imageSrc = cardImages[imageKey]; 
@@ -46,7 +48,8 @@ const ActiveResult = ({ cardData }) => {
       
       {/* Header with the dynamic dice roll badge */}
       <div className="result-header">
-        <div className="roll-badge">{cardData.diceRollValue}</div>
+        {/* <div className="roll-badge">{cardData.diceRollValue}</div> */}
+        <div className="roll-badge"><img src={BadgeCard} alt="" className='roll-badge-image' /></div>
         <h3 className="header-title">Active Result</h3>
       </div>
       

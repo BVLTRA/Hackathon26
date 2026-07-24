@@ -21,7 +21,7 @@
 .roll-badge {
   width: 32px;
   height: 32px;
-  background-color: #e5ff00; /* Neon yellow */
+  background-color: #e5ff0000; /* Neon yellow */
   color: #000000;
   border-radius: 50%;
   display: flex;
@@ -30,6 +30,11 @@
   font-weight: 900;
   font-size: 1.2rem;
   flex-shrink: 0;
+}
+
+.roll-badge-image {
+  width: 30px;
+  height: 30px;
 }
 
 .roll-badge.empty {

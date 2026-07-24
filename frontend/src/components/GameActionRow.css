@@ -37,8 +37,8 @@
 }
 
 .badge {
-  width: 28px;
-  height: 28px;
+  width: 30px;
+  height: 30px;
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -48,10 +48,10 @@
 }
 
 .action-header.cyan h3 { color: #01E8F7; }
-.action-header.cyan .badge { background-color: #01E8F7; }
+.action-header.cyan .badge { background-color: #01e7f700; }
 
-.action-header.purple h3 { color: #A020F0; } /* Adjust purple hex to your liking */
-.action-header.purple .badge { background-color: #A020F0; }
+.action-header.purple h3 { color: #A020F0; } 
+.action-header.purple .badge { background-color: #a020f000; }
 
 .action-header.red h3 { color: #F4251A; }
 .action-header.red .badge { background-color: #F4251A; }
