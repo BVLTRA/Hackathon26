@@ -12,13 +12,13 @@ const HowTo = () => {
         <div className="info-card">
           <h2 className="cyan-text">Rules of Magma Rush</h2>
           <div className="info-content">
-            <h3>1. The Roll</h3>
+            <h3>1. Roll</h3>
             <p>The Game Master selects the active player and rolls the die. A Good Roll brings fortune; a Bad Roll brings peril.</p>
             
-            <h3>2. The Draw</h3>
+            <h3>2. Draw</h3>
             <p>Draw a card corresponding to the die's alignment to reveal the player's exact fate.</p>
             
-            <h3>3. Resolution</h3>
+            <h3>3. Play</h3>
             <p>Execute the moves shown on the Active Result panel, update the physical board, and click "Turn Completed" to pass the torch to the next player.</p>
           </div>
         </div>
