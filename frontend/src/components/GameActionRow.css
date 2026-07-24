@@ -239,3 +239,17 @@
 
 .stat-edit-btn:hover { color: #ff8c00; }
 .stat-edit-btn:active { transform: scale(0.8); }
+
+/* --- INTERACTIVE INDICATORS --- */
+.interactive-indicator {
+  cursor: pointer;
+  transition: opacity 0.2s ease, transform 0.1s ease;
+}
+
+.interactive-indicator:hover {
+  opacity: 0.6; /* Brightens it up slightly when hovering */
+}
+
+.interactive-indicator:active {
+  transform: scale(0.95); /* Gives it a satisfying physical button press feel */
+}

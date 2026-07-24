@@ -36,7 +36,8 @@ const DiceWidget = ({ onRollComplete }) => {
   const [currentDice, setCurrentDice] = useState(diceImages.good[0]); // Default display
   const [finalAlignment, setFinalAlignment] = useState(null); // 'good' or 'bad'
 
-  const handleRoll = () => {
+  // Accept the chosen alignment from the indicator click
+  const handleRoll = (selectedAlignment) => {
     if (isRolling) return;
     
     setIsRolling(true);
@@ -44,26 +45,24 @@ const DiceWidget = ({ onRollComplete }) => {
 
     let shuffleCount = 0;
     const shuffleInterval = setInterval(() => {
-      // Pick a totally random dice for the shuffle animation
-      const align = Math.random() > 0.5 ? 'good' : 'bad';
+      // Shuffle ONLY within the selected alignment group
       const num = Math.floor(Math.random() * 3);
-      setCurrentDice(diceImages[align][num]);
+      setCurrentDice(diceImages[selectedAlignment][num]);
       
       shuffleCount++;
       if (shuffleCount > 10) {
         clearInterval(shuffleInterval);
         
-        // Settle on the final result
-        const finalAlign = Math.random() > 0.5 ? 'good' : 'bad';
+        // Settle on the final random number (1 to 3)
         const finalNum = Math.floor(Math.random() * 3);
-        const finalValue = finalNum + 1; // 1 to 3
+        const finalValue = finalNum + 1; 
         
-        setCurrentDice(diceImages[finalAlign][finalNum]);
-        setFinalAlignment(finalAlign);
+        setCurrentDice(diceImages[selectedAlignment][finalNum]);
+        setFinalAlignment(selectedAlignment);
         setIsRolling(false);
         
         // Send the result to the Dashboard
-        onRollComplete(finalAlign, finalValue);
+        onRollComplete(selectedAlignment, finalValue);
       }
     }, 100);
   };
@@ -76,21 +75,29 @@ const DiceWidget = ({ onRollComplete }) => {
       </div>
       <hr className="divider cyan-divider" />
       
-      <div className="action-body clickable" onClick={handleRoll}>
+      {/* Removed the 'clickable' class and onClick event from here */}
+      <div className="action-body">
         <div className="image-container">
           <img src={currentDice} alt="Dice" className={isRolling ? "rolling" : ""} />
         </div>
         <div className="text-container">
-          <h4 className="cyan-text">Click to Roll</h4>
-          <p>Discover their fate</p>
+          <h4 className="cyan-text">Choose Fate</h4>
+          <p>Select Good or Bad</p>
         </div>
       </div>
 
       <div className="indicator-row">
-        <div className={`indicator good-indicator ${finalAlignment === 'good' ? 'blink-active' : ''}`}>
+        {/* The indicators now trigger the roll and pass their specific alignment */}
+        <div 
+          className={`indicator good-indicator interactive-indicator ${finalAlignment === 'good' ? 'blink-active' : ''}`}
+          onClick={() => handleRoll('good')}
+        >
           GOOD
         </div>
-        <div className={`indicator bad-indicator ${finalAlignment === 'bad' ? 'blink-active' : ''}`}>
+        <div 
+          className={`indicator bad-indicator interactive-indicator ${finalAlignment === 'bad' ? 'blink-active' : ''}`}
+          onClick={() => handleRoll('bad')}
+        >
           BAD
         </div>
       </div>
