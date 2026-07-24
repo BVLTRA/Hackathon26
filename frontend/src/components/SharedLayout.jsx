@@ -20,7 +20,7 @@ const SharedLayout = () => {
       {/* --- PERSISTENT SIDEBAR --- */}
       <aside className="sidebar">
         <div className="sidebar-brand">
-          <img src={logo} alt="Magma Rush" className="brand-logo" height="15" />
+          <span><p>OMADA HEX</p></span>
         </div>
 
         <nav className="sidebar-nav">
